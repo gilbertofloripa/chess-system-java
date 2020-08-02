@@ -26,11 +26,19 @@ public class PartidaXadrez {
 		return mat;
 	}
 	
+	public void novaPosicaoPeca(char col, int lin, PecaXadrez peca) {
+		tabuleiro.colocarPeca(peca, new PosicaoXadrez(col, lin).paraPosicao());
+	}
 	public void inicialPosicao() {
-		tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.PRETA), new Posicao(2, 1));
-		tabuleiro.colocarPeca(new Rei(tabuleiro, Cor.PRETA), new Posicao(1, 2));
-		tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.BRANCA), new Posicao(7, 0));
-		tabuleiro.colocarPeca(new Rei(tabuleiro, Cor.BRANCA), new Posicao(7, 2));
+		novaPosicaoPeca('b', 6, new Torre(tabuleiro, Cor.PRETA));
+		novaPosicaoPeca('c', 6, new Rei(tabuleiro, Cor.PRETA));
+		novaPosicaoPeca('f', 7, new Torre(tabuleiro, Cor.BRANCA));
+
+		
+		//tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.PRETA), new Posicao(2, 1));
+		//tabuleiro.colocarPeca(new Rei(tabuleiro, Cor.PRETA), new Posicao(1, 2));
+		//tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.BRANCA), new Posicao(7, 0));
+		//tabuleiro.colocarPeca(new Rei(tabuleiro, Cor.BRANCA), new Posicao(7, 2));
 		
 	}
 }
