@@ -3,7 +3,7 @@ package aplication;
 import java.util.Locale;
 import java.util.Scanner;
 
-import tabuleiro.Tabuleiro;
+//import tabuleiro.Tabuleiro;
 import xadrez.PartidaXadrez;
 
 public class Program {
