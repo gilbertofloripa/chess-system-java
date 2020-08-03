@@ -1,7 +1,11 @@
 package aplication;
 
+import java.util.Scanner;
+
 import xadrez.Cor;
 import xadrez.PecaXadrez;
+import xadrez.PosicaoXadrez;
+import xadrez.XadrezException;
 
 public class UI {
 	// https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
@@ -26,6 +30,17 @@ public class UI {
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
+	public static PosicaoXadrez lerPosicaoXadrez(Scanner sc) {
+		try {
+			String s = sc.nextLine();
+			char col = s.charAt(0);
+			int lin = Integer.parseInt(s.substring(1));
+			return new PosicaoXadrez(col, lin);
+		}
+		catch (RuntimeException e){
+			throw new XadrezException("Erro na Posicao do Xadrez, tem que se de a1 a h8");
+		}
+	}
 	
 	public static void imprimeTab(PecaXadrez[][] pecas) {
 		for (int i=0; i < pecas.length; i++) {
