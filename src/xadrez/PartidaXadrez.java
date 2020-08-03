@@ -30,15 +30,19 @@ public class PartidaXadrez {
 		tabuleiro.colocarPeca(peca, new PosicaoXadrez(col, lin).paraPosicao());
 	}
 	public void inicialPosicao() {
-		novaPosicaoPeca('b', 6, new Torre(tabuleiro, Cor.PRETA));
-		novaPosicaoPeca('c', 6, new Rei(tabuleiro, Cor.PRETA));
-		novaPosicaoPeca('f', 7, new Torre(tabuleiro, Cor.BRANCA));
+		novaPosicaoPeca('c', 1, new Torre(tabuleiro, Cor.BRANCA));
+		novaPosicaoPeca('c', 2, new Torre(tabuleiro, Cor.BRANCA));
+		novaPosicaoPeca('d', 2, new Torre(tabuleiro, Cor.BRANCA));
+        novaPosicaoPeca('e', 2, new Torre(tabuleiro, Cor.BRANCA));
+        novaPosicaoPeca('e', 1, new Torre(tabuleiro, Cor.BRANCA));
+        novaPosicaoPeca('d', 1, new Rei(tabuleiro, Cor.BRANCA));
 
-		
-		//tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.PRETA), new Posicao(2, 1));
-		//tabuleiro.colocarPeca(new Rei(tabuleiro, Cor.PRETA), new Posicao(1, 2));
-		//tabuleiro.colocarPeca(new Torre(tabuleiro, Cor.BRANCA), new Posicao(7, 0));
-		//tabuleiro.colocarPeca(new Rei(tabuleiro, Cor.BRANCA), new Posicao(7, 2));
-		
+        novaPosicaoPeca('c', 7, new Torre(tabuleiro, Cor.PRETA));
+        novaPosicaoPeca('c', 8, new Torre(tabuleiro, Cor.PRETA));
+        novaPosicaoPeca('d', 7, new Torre(tabuleiro, Cor.PRETA));
+        novaPosicaoPeca('e', 7, new Torre(tabuleiro, Cor.PRETA));
+        novaPosicaoPeca('e', 8, new Torre(tabuleiro, Cor.PRETA));
+        novaPosicaoPeca('d', 8, new Rei(tabuleiro, Cor.PRETA));
+
 	}
 }
