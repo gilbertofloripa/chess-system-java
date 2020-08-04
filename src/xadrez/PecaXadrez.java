@@ -15,6 +15,13 @@ public abstract class PecaXadrez extends Peca{
 	public Cor getCor() {
 		return cor;
 	}
+	
+	public PosicaoXadrez getPosicaoXadrez() {
+		// converto a posicao atual de matrix para xadrez
+		return PosicaoXadrez.dePosicao(posicao); 
+	}
+	
+	
 	// verifica se a peca na posicao e do oponente
 	protected boolean ePecaOponente(Posicao posicao){
 		PecaXadrez p = (PecaXadrez) getTabuleiro().peca(posicao);

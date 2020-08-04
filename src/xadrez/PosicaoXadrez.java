@@ -30,7 +30,7 @@ public class PosicaoXadrez {
 	protected static PosicaoXadrez dePosicao(Posicao posicao) {
 		// Transforma da a posicao matriz para xadrez EX: 0,0 = a1
 		// O (char) na frente converte o resultado para caracter
-		return new PosicaoXadrez((char)('a' - posicao.getCol()), 8 - posicao.getLin());
+		return new PosicaoXadrez((char)('a' + posicao.getCol()), 8 - posicao.getLin());
 	}
 	
 	@Override
