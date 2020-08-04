@@ -1,7 +1,5 @@
 package tabuleiro;
 
-import boardgame.Position;
-
 public abstract class Peca {
 	protected Posicao posicao;
 	
@@ -25,7 +23,7 @@ public abstract class Peca {
 		boolean[][] mat = movimentosPossiveis();
 		for (int i=0; i< mat.length; i++) {
 			for (int j=0; j< mat.length; j++) {
-				if (mat[1][j]) { // se existe uma posicao valida/verdadeira na matris de possibilidades
+				if (mat[i][j]) { // se existe uma posicao valida/verdadeira na matris de possibilidades
 					return true;
 				}
 			}

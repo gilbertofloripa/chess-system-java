@@ -61,7 +61,7 @@ public class Tabuleiro {
 		
 	}
 	private boolean posicaoExiste(int lin, int col) {
-		return lin >= 0 && lin <= lins && col >=0 && col <= cols;
+		return lin >= 0 && lin < lins && col >=0 && col < cols;
 	}
 	
 	public boolean posicaoExiste(Posicao posicao) {

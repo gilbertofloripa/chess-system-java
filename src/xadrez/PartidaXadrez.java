@@ -1,6 +1,9 @@
 package xadrez;
 
 
+import boardgame.Position;
+import chess.ChessException;
+import chess.ChessPiece;
 import tabuleiro.Peca;
 import tabuleiro.Posicao;
 import tabuleiro.Tabuleiro;
@@ -31,6 +34,7 @@ public class PartidaXadrez {
 		Posicao orig = origem.paraPosicao();
 		Posicao dest = destino.paraPosicao();
 		validaPosicaoOrigem(orig);
+		validaPosicaoDestino(orig, dest);
 		Peca pecaCapturada = movePeca(orig, dest);
 		return (PecaXadrez) pecaCapturada;
 	}
@@ -42,6 +46,13 @@ public class PartidaXadrez {
 		// valida se existe algum posicao valida
 		if (!tabuleiro.peca(posicao).ePossivelMovimentar()) {
 			throw new XadrezException("Essa peca não pode ser movimentada");
+		}
+	}
+	
+	private void validaPosicaoDestino(Posicao orig, Posicao dest) {
+		// Verifica a peca na posicao origem se e possivel mov para o destino
+		if (!tabuleiro.peca(orig).movimentoPossivel(dest)) {
+			throw new XadrezException("A peca escolhida não pode mover-se para a posicao destino");
 		}
 	}
 
