@@ -31,7 +31,7 @@ public class UI {
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
 	// https://stackoverflow.com/questions/2979383/java-clear-the-console
-	public static void limpaRela() {
+	public static void limpaTela() {
 		System.out.print("\033[H\033[2J");
 		System.out.flush();
 	}	
@@ -58,7 +58,18 @@ public class UI {
 		}
 		System.out.println("  a b c d e f g h");
 	}
-	
+
+	public static void imprimeTab(PecaXadrez[][] pecas, boolean[][] moviPossiveis) {
+		for (int i=0; i < pecas.length; i++) {
+			System.out.print((8 - i) + " ");
+			for (int j=0; j < pecas.length; j++) {
+				imprimePeca(pecas[i][j], moviPossiveis[i][j]);
+			}
+			System.out.println();
+		}
+		System.out.println("  a b c d e f g h");
+	}
+
 	private static void imprimePeca(PecaXadrez peca) {
 		if (peca == null) {
 			System.out.print("-");
@@ -73,4 +84,23 @@ public class UI {
         }
         System.out.print(" ");
 	}
+	
+	private static void imprimePeca(PecaXadrez peca, boolean corFundo){
+		if (corFundo) {
+			System.out.print(ANSI_BLUE_BACKGROUND);
+		}
+		if (peca == null) {
+			System.out.print("-" + ANSI_RESET);
+		}
+		else {
+            if (peca.getCor() == Cor.BRANCA) {
+                System.out.print(ANSI_WHITE + peca + ANSI_RESET);
+            }
+            else {
+                System.out.print(ANSI_YELLOW + peca + ANSI_RESET);
+            }
+        }
+        System.out.print(" ");
+	}
+
 }

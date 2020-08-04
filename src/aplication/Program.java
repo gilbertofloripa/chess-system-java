@@ -20,12 +20,16 @@ public class Program {
 		
 		while (true) {
 			try{
-				UI.limpaRela();
+				UI.limpaTela();
 				UI.imprimeTab(partidaXadrez.getPecas());
 				
 				System.out.println();
 				System.out.print("Origem: ");
 				PosicaoXadrez origem = UI.lerPosicaoXadrez(sc);
+				
+				boolean[][] moviPossiveis = partidaXadrez.possivelMovimentos(origem);
+				UI.limpaTela();
+				UI.imprimeTab(partidaXadrez.getPecas(), moviPossiveis);
 				
 				System.out.println();
 				System.out.print("Destino: ");

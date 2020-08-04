@@ -1,9 +1,5 @@
 package xadrez;
 
-
-import boardgame.Position;
-import chess.ChessException;
-import chess.ChessPiece;
 import tabuleiro.Peca;
 import tabuleiro.Posicao;
 import tabuleiro.Tabuleiro;
@@ -29,6 +25,14 @@ public class PartidaXadrez {
 		}
 		return mat;
 	}
+	
+	public boolean[][] possivelMovimentos(PosicaoXadrez origemPosicao){
+		// converte posicao de xadrez para matrix
+		Posicao posicao = origemPosicao.paraPosicao();
+		validaPosicaoOrigem(posicao);
+		return tabuleiro.peca(posicao).movimentosPossiveis();
+	}
+	
 	public PecaXadrez moveXadrez(PosicaoXadrez origem, PosicaoXadrez destino) {
 		// Converte as posicoes recebidas de xadrez para matrix
 		Posicao orig = origem.paraPosicao();
