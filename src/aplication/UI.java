@@ -3,6 +3,7 @@ package aplication;
 import java.util.Scanner;
 
 import xadrez.Cor;
+import xadrez.PartidaXadrez;
 import xadrez.PecaXadrez;
 import xadrez.PosicaoXadrez;
 import xadrez.XadrezException;
@@ -48,6 +49,12 @@ public class UI {
 		}
 	}
 	
+	public static void imprimePartida(PartidaXadrez partidaXadrez) {
+		imprimeTab(partidaXadrez.getPecas());
+		System.out.println();
+		System.out.println("Turno: " + partidaXadrez.getTurno());
+		System.out.println("Aguardando jogador cor: " + partidaXadrez.getjogadorAtual());
+	}
 	public static void imprimeTab(PecaXadrez[][] pecas) {
 		for (int i=0; i < pecas.length; i++) {
 			System.out.print((8 - i) + " ");
