@@ -1,5 +1,8 @@
 package xadrez;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import tabuleiro.Peca;
 import tabuleiro.Posicao;
 import tabuleiro.Tabuleiro;
@@ -12,6 +15,10 @@ public class PartidaXadrez {
 	private int turno;
 	private Cor jogadorAtual; 
 	private Tabuleiro tabuleiro;
+	
+	private List<Peca> pecasTabuleiro = new ArrayList<>();
+	private List<Peca> pecasCapturadas = new ArrayList<>();
+	
 	
 	public PartidaXadrez() {
 		tabuleiro = new Tabuleiro (8, 8);
@@ -82,6 +89,10 @@ public class PartidaXadrez {
 		Peca p = tabuleiro.removePeca(origem);// remove a peca da origem e guarda a peca em p
 		Peca pecaCapturada = tabuleiro.removePeca(destino);// remove a peca do destino se houver e guarda
 		tabuleiro.colocarPeca(p, destino);// coloca a peca p na posicao destino
+		if (pecaCapturada != null) {
+			pecasTabuleiro.remove(pecaCapturada);
+			pecasCapturadas.add(pecaCapturada);
+		}
 		return pecaCapturada;
 	}
 	
@@ -92,23 +103,24 @@ public class PartidaXadrez {
 		jogadorAtual = (jogadorAtual == Cor.BRANCA) ? Cor.PRETA : Cor.BRANCA;
 	}
 	
-	public void novaPosicaoPeca(char col, int lin, PecaXadrez peca) {
+	public void novaPeca(char col, int lin, PecaXadrez peca) {
 		tabuleiro.colocarPeca(peca, new PosicaoXadrez(col, lin).paraPosicao());
+		pecasTabuleiro.add(peca);// acrescenta na lista de pecas no tabuleiro
 	}
 	public void inicialPosicao() {
-		novaPosicaoPeca('c', 1, new Torre(tabuleiro, Cor.BRANCA));
-		novaPosicaoPeca('c', 2, new Torre(tabuleiro, Cor.BRANCA));
-		novaPosicaoPeca('d', 2, new Torre(tabuleiro, Cor.BRANCA));
-        novaPosicaoPeca('e', 2, new Torre(tabuleiro, Cor.BRANCA));
-        novaPosicaoPeca('e', 1, new Torre(tabuleiro, Cor.BRANCA));
-        novaPosicaoPeca('d', 1, new Rei(tabuleiro, Cor.BRANCA));
+		novaPeca('c', 1, new Torre(tabuleiro, Cor.BRANCA));
+		novaPeca('c', 2, new Torre(tabuleiro, Cor.BRANCA));
+		novaPeca('d', 2, new Torre(tabuleiro, Cor.BRANCA));
+        novaPeca('e', 2, new Torre(tabuleiro, Cor.BRANCA));
+        novaPeca('e', 1, new Torre(tabuleiro, Cor.BRANCA));
+        novaPeca('d', 1, new Rei(tabuleiro, Cor.BRANCA));
 
-        novaPosicaoPeca('c', 7, new Torre(tabuleiro, Cor.PRETA));
-        novaPosicaoPeca('c', 8, new Torre(tabuleiro, Cor.PRETA));
-        novaPosicaoPeca('d', 7, new Torre(tabuleiro, Cor.PRETA));
-        novaPosicaoPeca('e', 7, new Torre(tabuleiro, Cor.PRETA));
-        novaPosicaoPeca('e', 8, new Torre(tabuleiro, Cor.PRETA));
-        novaPosicaoPeca('d', 8, new Rei(tabuleiro, Cor.PRETA));
+        novaPeca('c', 7, new Torre(tabuleiro, Cor.PRETA));
+        novaPeca('c', 8, new Torre(tabuleiro, Cor.PRETA));
+        novaPeca('d', 7, new Torre(tabuleiro, Cor.PRETA));
+        novaPeca('e', 7, new Torre(tabuleiro, Cor.PRETA));
+        novaPeca('e', 8, new Torre(tabuleiro, Cor.PRETA));
+        novaPeca('d', 8, new Rei(tabuleiro, Cor.PRETA));
 
 	}
 }
