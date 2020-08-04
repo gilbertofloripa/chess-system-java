@@ -39,6 +39,10 @@ public class PartidaXadrez {
 		if (!tabuleiro.temPeca(posicao)) {
 			throw new XadrezException("Não existe peca na posicao de origem");
 		}
+		// valida se existe algum posicao valida
+		if (!tabuleiro.peca(posicao).ePossivelMovimentar()) {
+			throw new XadrezException("Essa peca não pode ser movimentada");
+		}
 	}
 
 	private Peca movePeca(Posicao origem, Posicao destino) {
