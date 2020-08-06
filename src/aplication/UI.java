@@ -58,9 +58,16 @@ public class UI {
 		imprimePecasCap(capturadas);
 		System.out.println("Turno: " + partidaXadrez.getTurno());
 		System.out.println("Aguardando jogador cor: " + partidaXadrez.getjogadorAtual());
-		if (partidaXadrez.getCheck()) {
-			System.out.println("****** CHECK! ******");
+		if (!partidaXadrez.getCheckMate()) {
+			if (partidaXadrez.getCheck()) {
+				System.out.println("****** CHECK! ******");
+			}
 		}
+		else {
+			System.out.println("CHECK MATE!");
+			System.out.println("Vencedor: " + partidaXadrez.getjogadorAtual());
+		}
+			
 	}
 	public static void imprimeTab(PecaXadrez[][] pecas) {
 		for (int i=0; i < pecas.length; i++) {
