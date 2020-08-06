@@ -110,7 +110,8 @@ public class PartidaXadrez {
 	}
 
 	private Peca movePeca(Posicao origem, Posicao destino) {
-		Peca p = tabuleiro.removePeca(origem);// remove a peca da origem e guarda a peca em p
+		PecaXadrez p = (PecaXadrez)tabuleiro.removePeca(origem);// remove a peca da origem e guarda a peca em p
+		p.adicContadorMovi();
 		Peca pecaCapturada = tabuleiro.removePeca(destino);// remove a peca do destino se houver e guarda
 		tabuleiro.colocarPeca(p, destino);// coloca a peca p na posicao destino
 		if (pecaCapturada != null) {
@@ -122,7 +123,8 @@ public class PartidaXadrez {
 	
 	private void desfazMovi(Posicao origem, Posicao destino, Peca pecaCapturada){
 		// desfaz o movimento quando se movimenta para uma posica de xeque
-		Peca p = tabuleiro.removePeca(destino);
+		PecaXadrez p = (PecaXadrez)tabuleiro.removePeca(destino);
+		p.subContadorMovi();
 		tabuleiro.colocarPeca(p, origem); // volta a peca para origem
 		
 		if (pecaCapturada != null) {
