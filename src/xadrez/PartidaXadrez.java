@@ -122,6 +122,16 @@ public class PartidaXadrez {
 			pecasTabuleiro.remove(pecaCapturada);
 			pecasCapturadas.add(pecaCapturada);
 		}
+		
+		// Movimento de Rock
+		if (p instanceof Rei && destino.getCol() == origem.getCol() +2) {
+			Posicao origemT = new Posicao(origem.getLin(), origem.getCol() + 3);
+			Posicao destinoT = new Posicao(origem.getLin(), origem.getCol() + 1);
+			PecaXadrez rock = (PecaXadrez)tabuleiro.removePeca(origemT);
+			tabuleiro.colocarPeca(rock, destinoT); // coloca a torre no novo lugar rock
+			rock.adicContadorMovi();
+		}
+		
 		return pecaCapturada;
 	}
 	
@@ -215,14 +225,14 @@ public class PartidaXadrez {
 	}
 	public void inicialPosicao() {
 		novaPeca('a', 1, new Torre(tabuleiro, Cor.BRANCA));
-		novaPeca('b', 1, new Bispo(tabuleiro, Cor.BRANCA));
-		novaPeca('c', 1, new Cavalo(tabuleiro, Cor.BRANCA));
-		novaPeca('d', 1, new Rainha(tabuleiro, Cor.BRANCA));
-		novaPeca('e', 1, new Rei(tabuleiro, Cor.BRANCA));
-		novaPeca('f', 1, new Cavalo(tabuleiro, Cor.BRANCA));
-		novaPeca('g', 1, new Bispo(tabuleiro, Cor.BRANCA));
+		//novaPeca('b', 1, new Cavalo(tabuleiro, Cor.BRANCA));
+		//novaPeca('c', 1, new Bispo(tabuleiro, Cor.BRANCA));
+		//novaPeca('d', 1, new Rainha(tabuleiro, Cor.BRANCA));
+		novaPeca('e', 1, new Rei(tabuleiro, Cor.BRANCA, this));
+		//novaPeca('f', 1, new Bispo(tabuleiro, Cor.BRANCA));
+		//novaPeca('g', 1, new Cavalo(tabuleiro, Cor.BRANCA));
 		novaPeca('h', 1, new Torre(tabuleiro, Cor.BRANCA));
-		novaPeca('a', 2, new Peao(tabuleiro, Cor.BRANCA));
+		//novaPeca('a', 2, new Peao(tabuleiro, Cor.BRANCA));
 		novaPeca('b', 2, new Peao(tabuleiro, Cor.BRANCA));
 		novaPeca('c', 2, new Peao(tabuleiro, Cor.BRANCA));
 		novaPeca('d', 2, new Peao(tabuleiro, Cor.BRANCA));
@@ -232,12 +242,12 @@ public class PartidaXadrez {
 		novaPeca('h', 2, new Peao(tabuleiro, Cor.BRANCA));
 
         novaPeca('a', 8, new Torre(tabuleiro, Cor.PRETA));
-		novaPeca('b', 8, new Bispo(tabuleiro, Cor.PRETA));
-		novaPeca('c', 8, new Cavalo(tabuleiro, Cor.PRETA));
-		novaPeca('d', 8, new Rainha(tabuleiro, Cor.PRETA));
-        novaPeca('e', 8, new Rei(tabuleiro, Cor.PRETA));
-		novaPeca('f', 8, new Cavalo(tabuleiro, Cor.PRETA));
-		novaPeca('g', 8, new Bispo(tabuleiro, Cor.PRETA));
+		//novaPeca('b', 8, new Cavalo(tabuleiro, Cor.PRETA));
+		//novaPeca('c', 8, new Bispo(tabuleiro, Cor.PRETA));
+		//novaPeca('d', 8, new Rainha(tabuleiro, Cor.PRETA));
+        novaPeca('e', 8, new Rei(tabuleiro, Cor.PRETA, this));
+		//novaPeca('f', 8, new Bispo(tabuleiro, Cor.PRETA));
+		//novaPeca('g', 8, new Cavalo(tabuleiro, Cor.PRETA));
         novaPeca('h', 8, new Torre(tabuleiro, Cor.PRETA));
         novaPeca('a', 7, new Peao(tabuleiro, Cor.PRETA));
         novaPeca('b', 7, new Peao(tabuleiro, Cor.PRETA));
@@ -246,7 +256,7 @@ public class PartidaXadrez {
         novaPeca('e', 7, new Peao(tabuleiro, Cor.PRETA));
         novaPeca('f', 7, new Peao(tabuleiro, Cor.PRETA));
         novaPeca('g', 7, new Peao(tabuleiro, Cor.PRETA));
-        novaPeca('h', 7, new Peao(tabuleiro, Cor.PRETA));
+        //novaPeca('h', 7, new Peao(tabuleiro, Cor.PRETA));
 
 	}
 }
