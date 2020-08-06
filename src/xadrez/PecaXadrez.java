@@ -25,7 +25,7 @@ public abstract class PecaXadrez extends Peca{
 		contadorMovi++;
 	}
 	
-	puclic void subContadorMovi() {
+	public void subContadorMovi() {
 		contadorMovi--;
 	}
 	
