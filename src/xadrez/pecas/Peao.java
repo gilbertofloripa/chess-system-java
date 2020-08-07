@@ -3,13 +3,16 @@ package xadrez.pecas;
 import tabuleiro.Posicao;
 import tabuleiro.Tabuleiro;
 import xadrez.Cor;
+import xadrez.PartidaXadrez;
 import xadrez.PecaXadrez;
 
 public class Peao extends PecaXadrez{
 
-	public Peao(Tabuleiro tabuleiro, Cor cor) {
+	PartidaXadrez partidaXadrez;
+	
+	public Peao(Tabuleiro tabuleiro, Cor cor, PartidaXadrez partidaXadrez) {
 		super(tabuleiro, cor);
-		// TODO Auto-generated constructor stub
+		this.partidaXadrez = partidaXadrez;
 	}
 
 	@Override
@@ -49,6 +52,24 @@ public class Peao extends PecaXadrez{
 			if (getTabuleiro().posicaoExiste(p) && ePecaOponente(p)){
 				mat[p.getLin()][p.getCol()] = true;
 			}
+			
+			// Enpassan piao Brancas a esquerda (somente na linha 3)
+			if (posicao.getLin() == 3) {
+				// ESQUERDA
+				// verifica se tem um peao oponente ao lado esquerdo e esta vulneravela enpassant
+				Posicao esquerda = new Posicao(posicao.getLin(), posicao.getCol() - 1);
+				if (getTabuleiro().posicaoExiste(esquerda) && ePecaOponente(esquerda)
+					&& getTabuleiro().peca(esquerda) == partidaXadrez.getEnPassant()){
+					mat[esquerda.getLin() - 1][esquerda.getCol()] = true;
+				}
+				// DIREITA
+				// verifica se tem um peao oponente ao lado direita e esta vulneravela enpassant
+				Posicao direita = new Posicao(posicao.getLin(), posicao.getCol() + 1);
+				if (getTabuleiro().posicaoExiste(direita) && ePecaOponente(direita)
+					&& getTabuleiro().peca(direita) == partidaXadrez.getEnPassant()){
+					mat[direita.getLin() - 1][direita.getCol()] = true;
+				}
+			}
 		}
 		else {
 			//******  TESTA 1 CASA PARA BAIXO PECA PRETA *******
@@ -81,7 +102,24 @@ public class Peao extends PecaXadrez{
 			if (getTabuleiro().posicaoExiste(p) && ePecaOponente(p)){
 				mat[p.getLin()][p.getCol()] = true;
 			}
-			
+
+			// Enpassan piao PRETO a esquerda (somente na linha 3)
+			if (posicao.getLin() == 4) {
+				// ESQUERDA
+				// verifica se tem um peao oponente ao lado esquerdo e esta vulneravela enpassant
+				Posicao esquerda = new Posicao(posicao.getLin(), posicao.getCol() - 1);
+				if (getTabuleiro().posicaoExiste(esquerda) && ePecaOponente(esquerda)
+					&& getTabuleiro().peca(esquerda) == partidaXadrez.getEnPassant()){
+					mat[esquerda.getLin() + 1][esquerda.getCol()] = true;
+				}
+				// DIREITA
+				// verifica se tem um peao oponente ao lado direita e esta vulneravela enpassant
+				Posicao direita = new Posicao(posicao.getLin(), posicao.getCol() + 1);
+				if (getTabuleiro().posicaoExiste(direita) && ePecaOponente(direita)
+					&& getTabuleiro().peca(direita) == partidaXadrez.getEnPassant()){
+					mat[direita.getLin() + 1][direita.getCol()] = true;
+				}
+			}
 		}
 		
 		return mat;

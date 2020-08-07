@@ -22,6 +22,7 @@ public class PartidaXadrez {
 	private Tabuleiro tabuleiro;
 	private boolean check;
 	private boolean checkMate;
+	private PecaXadrez enPassant;
 	
 	private List<Peca> pecasTabuleiro = new ArrayList<>();
 	private List<Peca> pecasCapturadas = new ArrayList<>();
@@ -48,6 +49,10 @@ public class PartidaXadrez {
 
 	public boolean getCheckMate() {
 		return checkMate;
+	}
+	
+	public PecaXadrez getEnPassant() {
+		return enPassant;
 	}
 	
 	public PecaXadrez[][] getPecas(){
@@ -80,6 +85,8 @@ public class PartidaXadrez {
 		}
 		// verifica se o oponete ficou em check apos a jogada
 		check = (testeCheck(oponente(jogadorAtual))) ? true : false;
+		// guarda a peca movimentada
+		PecaXadrez pecaMovida = (PecaXadrez)tabuleiro.peca(dest);
 		
 		// verifica se e check mate
 		if (testeCheckMate(oponente(jogadorAtual))) {
@@ -87,6 +94,14 @@ public class PartidaXadrez {
 		}
 		else {
 			proximoTurno();
+		}
+		// Verfica se o Piao andou duas casas, ai ele fica vulneravel a enpassant
+		if (pecaMovida instanceof Peao && (destino.getLin() == origem.getLin() - 2
+				|| destino.getLin() == origem.getLin() + 2 )) {
+			enPassant = pecaMovida;
+		}
+		else {
+			enPassant = null;
 		}
 		return (PecaXadrez) pecaCapturada;
 	}
@@ -132,6 +147,24 @@ public class PartidaXadrez {
 			rock.adicContadorMovi();
 		}
 		
+		// enpassant
+		if (p instanceof Peao) {
+			// Se o peao andou na vertical e nao e captura e um enpassant
+			if (origem.getCol() != destino.getCol() && pecaCapturada == null) {
+				Posicao peaoPosicao;
+				// Captura o peao oponente
+				if (p.getCor() == Cor.BRANCA) {
+					peaoPosicao = new Posicao(destino.getLin() + 1, destino.getCol());
+				}
+				else {
+					peaoPosicao = new Posicao(destino.getLin() - 1, destino.getCol());
+				}		
+				pecaCapturada = tabuleiro.removePeca(peaoPosicao);
+				pecasCapturadas.add(pecaCapturada);
+				pecasTabuleiro.remove(pecaCapturada);
+			}
+		}
+		
 		return pecaCapturada;
 	}
 	
@@ -146,6 +179,24 @@ public class PartidaXadrez {
 			pecasCapturadas.remove(pecaCapturada);
 			pecasTabuleiro.add(pecaCapturada);
 		}
+		
+		// enpassant
+		if (p instanceof Peao) {
+			// Se o peao andou na vertical e nao e captura e um enpassant
+			if (origem.getCol() != destino.getCol() && pecaCapturada == enPassant) {
+				PecaXadrez peao = (PecaXadrez)tabuleiro.removePeca(destino);
+				Posicao peaoPosicao;
+				// Captura o peao oponente
+				if (p.getCor() == Cor.BRANCA) {
+					peaoPosicao = new Posicao(3, destino.getCol());
+				}
+				else {
+					peaoPosicao = new Posicao(4, destino.getCol());
+				}
+				tabuleiro.colocarPeca(peao, peaoPosicao);
+			}
+		}
+
 	}
 	
 	private void proximoTurno() {
@@ -225,38 +276,37 @@ public class PartidaXadrez {
 	}
 	public void inicialPosicao() {
 		novaPeca('a', 1, new Torre(tabuleiro, Cor.BRANCA));
-		//novaPeca('b', 1, new Cavalo(tabuleiro, Cor.BRANCA));
-		//novaPeca('c', 1, new Bispo(tabuleiro, Cor.BRANCA));
-		//novaPeca('d', 1, new Rainha(tabuleiro, Cor.BRANCA));
+		novaPeca('b', 1, new Cavalo(tabuleiro, Cor.BRANCA));
+		novaPeca('c', 1, new Bispo(tabuleiro, Cor.BRANCA));
+		novaPeca('d', 1, new Rainha(tabuleiro, Cor.BRANCA));
 		novaPeca('e', 1, new Rei(tabuleiro, Cor.BRANCA, this));
-		//novaPeca('f', 1, new Bispo(tabuleiro, Cor.BRANCA));
-		//novaPeca('g', 1, new Cavalo(tabuleiro, Cor.BRANCA));
+		novaPeca('f', 1, new Bispo(tabuleiro, Cor.BRANCA));
+		novaPeca('g', 1, new Cavalo(tabuleiro, Cor.BRANCA));
 		novaPeca('h', 1, new Torre(tabuleiro, Cor.BRANCA));
-		//novaPeca('a', 2, new Peao(tabuleiro, Cor.BRANCA));
-		novaPeca('b', 2, new Peao(tabuleiro, Cor.BRANCA));
-		novaPeca('c', 2, new Peao(tabuleiro, Cor.BRANCA));
-		novaPeca('d', 2, new Peao(tabuleiro, Cor.BRANCA));
-		novaPeca('e', 2, new Peao(tabuleiro, Cor.BRANCA));
-		novaPeca('f', 2, new Peao(tabuleiro, Cor.BRANCA));
-		novaPeca('g', 2, new Peao(tabuleiro, Cor.BRANCA));
-		novaPeca('h', 2, new Peao(tabuleiro, Cor.BRANCA));
+		novaPeca('a', 2, new Peao(tabuleiro, Cor.BRANCA, this));
+		novaPeca('b', 2, new Peao(tabuleiro, Cor.BRANCA, this));
+		novaPeca('c', 2, new Peao(tabuleiro, Cor.BRANCA, this));
+		novaPeca('d', 2, new Peao(tabuleiro, Cor.BRANCA, this));
+		novaPeca('e', 2, new Peao(tabuleiro, Cor.BRANCA, this));
+		novaPeca('f', 2, new Peao(tabuleiro, Cor.BRANCA, this));
+		novaPeca('g', 2, new Peao(tabuleiro, Cor.BRANCA, this));
+		novaPeca('h', 2, new Peao(tabuleiro, Cor.BRANCA, this));
 
         novaPeca('a', 8, new Torre(tabuleiro, Cor.PRETA));
-		//novaPeca('b', 8, new Cavalo(tabuleiro, Cor.PRETA));
-		//novaPeca('c', 8, new Bispo(tabuleiro, Cor.PRETA));
-		//novaPeca('d', 8, new Rainha(tabuleiro, Cor.PRETA));
+		novaPeca('b', 8, new Cavalo(tabuleiro, Cor.PRETA));
+		novaPeca('c', 8, new Bispo(tabuleiro, Cor.PRETA));
+		novaPeca('d', 8, new Rainha(tabuleiro, Cor.PRETA));
         novaPeca('e', 8, new Rei(tabuleiro, Cor.PRETA, this));
-		//novaPeca('f', 8, new Bispo(tabuleiro, Cor.PRETA));
-		//novaPeca('g', 8, new Cavalo(tabuleiro, Cor.PRETA));
+		novaPeca('f', 8, new Bispo(tabuleiro, Cor.PRETA));
+		novaPeca('g', 8, new Cavalo(tabuleiro, Cor.PRETA));
         novaPeca('h', 8, new Torre(tabuleiro, Cor.PRETA));
-        novaPeca('a', 7, new Peao(tabuleiro, Cor.PRETA));
-        novaPeca('b', 7, new Peao(tabuleiro, Cor.PRETA));
-        novaPeca('c', 7, new Peao(tabuleiro, Cor.PRETA));
-        novaPeca('d', 7, new Peao(tabuleiro, Cor.PRETA));
-        novaPeca('e', 7, new Peao(tabuleiro, Cor.PRETA));
-        novaPeca('f', 7, new Peao(tabuleiro, Cor.PRETA));
-        novaPeca('g', 7, new Peao(tabuleiro, Cor.PRETA));
-        //novaPeca('h', 7, new Peao(tabuleiro, Cor.PRETA));
-
+        novaPeca('a', 7, new Peao(tabuleiro, Cor.PRETA, this));
+        novaPeca('b', 7, new Peao(tabuleiro, Cor.PRETA, this));
+        novaPeca('c', 7, new Peao(tabuleiro, Cor.PRETA, this));
+        novaPeca('d', 7, new Peao(tabuleiro, Cor.PRETA, this));
+        novaPeca('e', 7, new Peao(tabuleiro, Cor.PRETA, this));
+        novaPeca('f', 7, new Peao(tabuleiro, Cor.PRETA, this));
+        novaPeca('g', 7, new Peao(tabuleiro, Cor.PRETA, this));
+        novaPeca('h', 7, new Peao(tabuleiro, Cor.PRETA, this));
 	}
 }
