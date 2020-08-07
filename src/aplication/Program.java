@@ -1,5 +1,6 @@
 package aplication;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -45,8 +46,13 @@ public class Program {
 				
 				// Promocao de pecas
 				if (partidaXadrez.getPromocao() != null) {
-					System.out.println("Entre com a peca para promover Q/B/C/T: ");
-					String tipo = sc.nextLine();
+					System.out.print("Entre com a peca para promover Q/B/C/T: ");
+					String tipo = sc.nextLine().toUpperCase();
+					while (!tipo.equals("B") && !tipo.equals("C") && !tipo.equals("T") && !tipo.equals("Q")) {
+						System.out.print("Opção invalida, Entre com a peca para promover Q/B/C/T: ");
+						tipo = sc.nextLine().toUpperCase();
+					}
+
 					partidaXadrez.trocaPecaPromovida(tipo);
 				}
 			}
